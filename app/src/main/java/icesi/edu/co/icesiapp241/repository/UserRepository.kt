@@ -20,7 +20,7 @@ class UserRepositoryImpl(
         return user
     }
     override fun observeUser(callback: (User) -> Unit) {
-        userServices.observeUser(Firebase.auth.uid!!){ snapshot, error ->
+        userServices.observeUser(Firebase.auth.uid!!){ snapshot ->
             val user = snapshot?.toObject(User::class.java)
             user?.let{
                 callback(it)

@@ -26,9 +26,11 @@ class UserServices {
         return output
     }
 
-    fun observeUser(id: String, listener: EventListener<DocumentSnapshot>) {
+    fun observeUser(id: String, callback: (DocumentSnapshot?) -> Unit) {
         Firebase.firestore.collection("users").document(id)
-            .addSnapshotListener(listener)
+            .addSnapshotListener{ snapshot, error ->
+                callback(snapshot)
+            }
     }
 
 
