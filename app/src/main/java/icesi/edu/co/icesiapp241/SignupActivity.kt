@@ -1,5 +1,6 @@
 package icesi.edu.co.icesiapp241
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import icesi.edu.co.icesiapp241.databinding.ActivitySignupBinding
 import icesi.edu.co.icesiapp241.domain.model.AppAuthState
 import icesi.edu.co.icesiapp241.domain.model.AuthStatus
+import icesi.edu.co.icesiapp241.domain.model.User
 import icesi.edu.co.icesiapp241.viewmodel.SignupViewModel
 
 class SignupActivity : AppCompatActivity() {
@@ -23,7 +25,12 @@ class SignupActivity : AppCompatActivity() {
 
         binding.signupBtn.setOnClickListener {
             viewModel.signup(
-                binding.emailET.text.toString(),
+                User(
+                    "",
+                    binding.usernameET.text.toString(),
+                    binding.emailET.text.toString(),
+                    binding.nameET.text.toString()
+                ),
                 binding.passET.text.toString()
             )
         }
@@ -33,11 +40,15 @@ class SignupActivity : AppCompatActivity() {
                 is AppAuthState.Loading -> {
                     Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }
+
                 is AppAuthState.Error -> {
                     Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }
+
                 is AppAuthState.Success -> {
-                    Toast.makeText(this, "Bienvenido ${it.userID}", Toast.LENGTH_LONG).show()
+                    startActivity(
+                        Intent(this@SignupActivity, ProfileActivity::class.java)
+                    )
                 }
             }
         }

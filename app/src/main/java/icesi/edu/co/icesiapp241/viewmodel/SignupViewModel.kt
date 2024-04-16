@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import icesi.edu.co.icesiapp241.domain.model.AppAuthState
 import icesi.edu.co.icesiapp241.domain.model.AuthStatus
+import icesi.edu.co.icesiapp241.domain.model.User
 import icesi.edu.co.icesiapp241.repository.AuthRepository
 import icesi.edu.co.icesiapp241.repository.AuthRepositoryImpl
 import kotlinx.coroutines.Dispatchers
@@ -15,13 +16,13 @@ class SignupViewModel(val repo:AuthRepository = AuthRepositoryImpl()) : ViewMode
 
     val authStatus = MutableLiveData<AppAuthState>()
 
-    fun signup(email:String, pass:String) {
+    fun signup(user: User, pass:String) {
         viewModelScope.launch(Dispatchers.IO) {
 
             withContext(Dispatchers.Main){
                 authStatus.value = AppAuthState.Loading("Cargando...")
             }
-            val status = repo.signup(email,pass) //10s
+            val status = repo.signup(user, pass) //10s
             withContext(Dispatchers.Main){authStatus.value = status}
 
         }
