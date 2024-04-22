@@ -23,6 +23,11 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.igotaccountBtn.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
         binding.signupBtn.setOnClickListener {
             viewModel.signup(
                 User(

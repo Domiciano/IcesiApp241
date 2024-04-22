@@ -19,12 +19,12 @@ class AuthRepositoryImpl(
         try {
             val result = authServices.login(email, pass)
             result.user?.let {
-                return AppAuthState.Success("")
+                return AppAuthState.Success(it.uid)
             } ?: run {
-                return AppAuthState.Error("")
+                return AppAuthState.Error("Something went wrong")
             }
         } catch (ex: FirebaseAuthException) {
-            return AppAuthState.Error("")
+            return AppAuthState.Error(ex.errorCode)
         }
     }
 
