@@ -3,6 +3,7 @@ package icesi.edu.co.icesiapp241.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import icesi.edu.co.icesiapp241.domain.model.Message
 import icesi.edu.co.icesiapp241.domain.model.User
 import icesi.edu.co.icesiapp241.repository.AuthRepository
 import icesi.edu.co.icesiapp241.repository.AuthRepositoryImpl
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 class ProfileViewModel(
     val userRepo: UserRepository = UserRepositoryImpl(),
     val authRepo: AuthRepository = AuthRepositoryImpl()
-    ) : ViewModel() {
+) : ViewModel() {
 
     //Estado
     val userState = MutableLiveData<User>()
