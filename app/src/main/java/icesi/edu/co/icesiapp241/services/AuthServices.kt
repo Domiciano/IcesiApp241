@@ -15,5 +15,9 @@ class AuthServices {
         return Firebase.auth.signInWithEmailAndPassword(email, pass).await()
     }
 
+    fun signout() {
+        Firebase.auth.signOut()
+    }
+
 
 }

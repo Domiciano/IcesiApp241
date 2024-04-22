@@ -9,6 +9,7 @@ import icesi.edu.co.icesiapp241.services.UserServices
 interface AuthRepository {
     suspend fun login(email: String, pass: String): AppAuthState
     suspend fun signup(user: User, pass: String): AppAuthState
+    fun signout()
 }
 
 class AuthRepositoryImpl(
@@ -43,6 +44,10 @@ class AuthRepositoryImpl(
         } catch (ex: FirebaseAuthException) {
             return AppAuthState.Error(ex.errorCode)
         }
+    }
+
+    override fun signout() {
+        authServices.signout()
     }
 
 }
