@@ -2,21 +2,16 @@ package icesi.edu.co.icesiapp241
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
 import icesi.edu.co.icesiapp241.adapters.ChatAdapter
 import icesi.edu.co.icesiapp241.databinding.ActivityProfileBinding
 import icesi.edu.co.icesiapp241.domain.model.Message
 import icesi.edu.co.icesiapp241.viewmodel.ProfileViewModel
-import java.util.UUID
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -35,12 +30,28 @@ class ProfileActivity : AppCompatActivity() {
 
 
         Firebase.auth.currentUser?.let {
-            viewmodel.observeUser()
+            viewmodel.loadUser()
+            viewmodel.observeGeneralRoom()
 
             binding.signoutButton.setOnClickListener {
                 viewmodel.signout()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
+            }
+
+            viewmodel.messagesState.observe(this){
+                adapter.messages = it
+                adapter.notifyDataSetChanged()
+            }
+
+            binding.sendButton.setOnClickListener {
+                viewmodel.sendMessage(
+                    Message(
+                        Firebase.auth.uid!!,
+                        binding.messageET.text.toString(),
+                        Timestamp.now()
+                    )
+                )
             }
 
 
