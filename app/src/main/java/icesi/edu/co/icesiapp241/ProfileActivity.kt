@@ -29,6 +29,11 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.messagesRV.setHasFixedSize(true)
+        val manager = LinearLayoutManager(this)
+        manager.stackFromEnd = true
+        binding.messagesRV.layoutManager = manager
+        binding.messagesRV.adapter = adapter
 
         Firebase.auth.currentUser?.let {
             viewmodel.observeUser()
@@ -64,11 +69,7 @@ class ProfileActivity : AppCompatActivity() {
                 binding.nameTV.text = it.name
             }
 
-            binding.messagesRV.setHasFixedSize(true)
-            val manager = LinearLayoutManager(this)
-            manager.stackFromEnd = true
-            binding.messagesRV.layoutManager = manager
-            binding.messagesRV.adapter = adapter
+
 
         } ?: run {
             startActivity(Intent(this, LoginActivity::class.java))
