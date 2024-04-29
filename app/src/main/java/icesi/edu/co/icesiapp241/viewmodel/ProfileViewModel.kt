@@ -1,5 +1,6 @@
 package icesi.edu.co.icesiapp241.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ import icesi.edu.co.icesiapp241.repository.UserRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class ProfileViewModel(
     val userRepo: UserRepository = UserRepositoryImpl(),
@@ -68,6 +70,14 @@ class ProfileViewModel(
     fun sendMessage(message: Message) {
         viewModelScope.launch (Dispatchers.IO){
             messagesRepo.sendMessage(message)
+        }
+    }
+
+    fun updateProfileImage(uri: Uri){
+        viewModelScope.launch (Dispatchers.IO){
+            val id = UUID.randomUUID().toString()
+            userRepo.updateProfileImage(uri, id)
+            loadUser()
         }
     }
 

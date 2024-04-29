@@ -1,6 +1,7 @@
 package icesi.edu.co.icesiapp241.services
 
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.QuerySnapshot
@@ -38,6 +39,12 @@ class UserServices {
         var beta = true
         var gamma = 123
         funcion(alfa,beta,gamma)
+    }
+
+    suspend fun updateProfileImage(filename: String) {
+        Firebase.firestore.collection("users").document(
+            Firebase.auth.uid!!
+        ).update("profilePic", filename).await()
     }
 
 
