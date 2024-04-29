@@ -2,6 +2,7 @@ package icesi.edu.co.icesiapp241
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,9 @@ class ProfileActivity : AppCompatActivity() {
             viewmodel.messagesState.observe(this){
                 adapter.messages = it
                 adapter.notifyDataSetChanged()
+                if(adapter.itemCount>0) {
+                    binding.messagesRV.smoothScrollToPosition(it.lastIndex);
+                }
             }
 
             binding.sendButton.setOnClickListener {
@@ -61,9 +65,10 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             binding.messagesRV.setHasFixedSize(true)
-            binding.messagesRV.layoutManager = LinearLayoutManager(this)
+            val manager = LinearLayoutManager(this)
+            manager.stackFromEnd = true
+            binding.messagesRV.layoutManager = manager
             binding.messagesRV.adapter = adapter
-
 
         } ?: run {
             startActivity(Intent(this, LoginActivity::class.java))
