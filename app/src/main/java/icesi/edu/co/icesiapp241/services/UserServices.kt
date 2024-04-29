@@ -33,5 +33,12 @@ class UserServices {
             }
     }
 
+    fun test(funcion:(String,Boolean, Int)->Unit) {
+       var alfa = "Luisa Castaño"
+        var beta = true
+        var gamma = 123
+        funcion(alfa,beta,gamma)
+    }
+
 
 }

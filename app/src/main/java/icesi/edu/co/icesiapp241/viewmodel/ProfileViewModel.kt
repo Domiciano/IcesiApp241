@@ -44,10 +44,13 @@ class ProfileViewModel(
     }
 
     fun observeUser() {
-        userRepo.observeUser {
+        userRepo.observeUser({
             _userState.value = it
-        } //alfa(fun: (String) -> Unit)
+        }
+        ) //alfa(fun: (String) -> Unit)
     }
+
+
 
 
     fun observeGeneralRoom(){

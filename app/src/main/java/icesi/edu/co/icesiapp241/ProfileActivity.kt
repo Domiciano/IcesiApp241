@@ -30,7 +30,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
         Firebase.auth.currentUser?.let {
-            viewmodel.loadUser()
+            viewmodel.observeUser()
             viewmodel.observeGeneralRoom()
 
             binding.signoutButton.setOnClickListener {
