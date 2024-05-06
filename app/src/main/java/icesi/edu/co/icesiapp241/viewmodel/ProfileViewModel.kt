@@ -1,6 +1,7 @@
 package icesi.edu.co.icesiapp241.viewmodel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,10 @@ import icesi.edu.co.icesiapp241.repository.MessagesRepository
 import icesi.edu.co.icesiapp241.repository.MessagesRepositoryImpl
 import icesi.edu.co.icesiapp241.repository.UserRepository
 import icesi.edu.co.icesiapp241.repository.UserRepositoryImpl
+import icesi.edu.co.icesiapp241.retrofit.FCMBody
+import icesi.edu.co.icesiapp241.retrofit.FCMData
+import icesi.edu.co.icesiapp241.retrofit.FCMMessage
+import icesi.edu.co.icesiapp241.retrofit.RetrofitConfiguration
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -70,6 +75,17 @@ class ProfileViewModel(
     fun sendMessage(message: Message) {
         viewModelScope.launch (Dispatchers.IO){
             messagesRepo.sendMessage(message)
+            var response = RetrofitConfiguration.messagingService.sendMessage(
+                FCMBody(
+                    FCMMessage(
+                        "news",
+                        FCMData(
+                            "Alfa","Lorem Ipsum..."
+                        )
+                    )
+                )
+            )
+            Log.e(">>>", response.name)
         }
     }
 

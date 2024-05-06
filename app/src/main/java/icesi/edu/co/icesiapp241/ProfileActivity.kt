@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.auth
+import com.google.firebase.messaging.messaging
 import com.google.firebase.storage.storage
 import icesi.edu.co.icesiapp241.adapters.ChatAdapter
 import icesi.edu.co.icesiapp241.databinding.ActivityProfileBinding
@@ -37,7 +38,14 @@ class ProfileActivity : AppCompatActivity() {
         requestPermissions(arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
+            Manifest.permission.POST_NOTIFICATIONS
         ), 1)
+
+
+        Firebase.messaging.subscribeToTopic("news").addOnSuccessListener {
+            Log.e(">>>", "Sucrito")
+        }
+
 
         val galleryLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()){
