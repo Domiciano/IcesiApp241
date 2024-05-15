@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import icesi.edu.co.icesiapp241.domain.model.AppAuthState
-import icesi.edu.co.icesiapp241.domain.model.AuthStatus
 import icesi.edu.co.icesiapp241.domain.model.User
 import icesi.edu.co.icesiapp241.repository.AuthRepository
 import icesi.edu.co.icesiapp241.repository.AuthRepositoryImpl

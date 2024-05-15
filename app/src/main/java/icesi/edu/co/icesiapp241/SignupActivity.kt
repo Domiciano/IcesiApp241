@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import icesi.edu.co.icesiapp241.databinding.ActivitySignupBinding
 import icesi.edu.co.icesiapp241.domain.model.AppAuthState
-import icesi.edu.co.icesiapp241.domain.model.AuthStatus
 import icesi.edu.co.icesiapp241.domain.model.User
 import icesi.edu.co.icesiapp241.viewmodel.SignupViewModel
 
